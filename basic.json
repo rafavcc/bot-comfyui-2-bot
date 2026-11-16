@@ -1,0 +1,185 @@
+{
+  "1": {
+    "inputs": {
+      "ckpt_name": "aMixIllustrious_aMix.safetensors"
+    },
+    "class_type": "CheckpointLoaderSimple",
+    "_meta": {
+      "title": "Load Checkpoint"
+    }
+  },
+  "2": {
+    "inputs": {
+      "stop_at_clip_layer": -2,
+      "clip": [
+        "1",
+        1
+      ]
+    },
+    "class_type": "CLIPSetLastLayer",
+    "_meta": {
+      "title": "CLIP Set Last Layer"
+    }
+  },
+  "3": {
+    "inputs": {
+      "text": "<embedding:lazypos:1>, highres, absurdres, high quality, \n\n1girl, baiken, solo, \n\n(large breasts:1.4), (huge breasts:1.4), (breasts apart:1.0), (cleavage:1.4), slender, (((areola slip))), (round boobs:1.4), \n\ndark red hair, (long hair:1.4), long high ponytail, (high ponytail:1.4),\n\nbeautiful eyes, (((detailed eyes))), red eyes, glossy eyes, \n\nsmall mouth, small nose, \n\nopen kimono,\n\nsoft lighting, backlighting, rim_lighting, dramatic_lighting, (((pastel colors:1.2))), warm color palette, pastel_colors, warm_colors, \n\npainterly, soft_shading, artbook, front view, full body picture,  \n\nsitting in hot spring,",
+      "clip": [
+        "16",
+        1
+      ]
+    },
+    "class_type": "CLIPTextEncode",
+    "_meta": {
+      "title": "CLIP Text Encode (Prompt)"
+    }
+  },
+  "4": {
+    "inputs": {
+      "text": "<embedding:lazyneg:1>,\n\nworst quality, low quality, normal quality, lowres, blurry, jpeg artifacts, noise, grain,\n\n\n\n",
+      "clip": [
+        "16",
+        1
+      ]
+    },
+    "class_type": "CLIPTextEncode",
+    "_meta": {
+      "title": "CLIP Text Encode (Prompt)"
+    }
+  },
+  "5": {
+    "inputs": {
+      "seed": 696969,
+      "steps": 30,
+      "cfg": 7,
+      "sampler_name": "heun",
+      "scheduler": "normal",
+      "denoise": 1,
+      "model": [
+        "16",
+        0
+      ],
+      "positive": [
+        "3",
+        0
+      ],
+      "negative": [
+        "4",
+        0
+      ],
+      "latent_image": [
+        "6",
+        0
+      ]
+    },
+    "class_type": "KSampler",
+    "_meta": {
+      "title": "KSampler"
+    }
+  },
+  "6": {
+    "inputs": {
+      "width": 680,
+      "height": 1024,
+      "batch_size": 1
+    },
+    "class_type": "EmptyLatentImage",
+    "_meta": {
+      "title": "Empty Latent Image"
+    }
+  },
+  "7": {
+    "inputs": {
+      "samples": [
+        "5",
+        0
+      ],
+      "vae": [
+        "1",
+        2
+      ]
+    },
+    "class_type": "VAEDecode",
+    "_meta": {
+      "title": "VAE Decode"
+    }
+  },
+  "8": {
+    "inputs": {
+      "filename_prefix": "ComfyUI",
+      "images": [
+        "7",
+        0
+      ]
+    },
+    "class_type": "SaveImage",
+    "_meta": {
+      "title": "Save Image"
+    }
+  },
+  "16": {
+    "inputs": {
+      "PowerLoraLoaderHeaderWidget": {
+        "type": "PowerLoraLoaderHeaderWidget"
+      },
+      "lora_1": {
+        "on": true,
+        "lora": "DetailedEyes_V3.safetensors",
+        "strength": 1.45
+      },
+      "lora_2": {
+        "on": true,
+        "lora": "Dramatic Lighting Slider.safetensors",
+        "strength": 1.2
+      },
+      "lora_3": {
+        "on": true,
+        "lora": "StS-Illustrious-Detail-Slider-v1.0.safetensors",
+        "strength": 1.2
+      },
+      "lora_4": {
+        "on": true,
+        "lora": "USNR_STYLE_NB_Vpred_V3-000019.safetensors",
+        "strength": 0.6
+      },
+      "lora_5": {
+        "on": true,
+        "lora": "Hyperrealistic_illustrious.safetensors",
+        "strength": 1.2
+      },
+      "lora_6": {
+        "on": false,
+        "lora": "ltx-2-19b-ic-lora-detailer.safetensors",
+        "strength": 0.4
+      },
+      "lora_7": {
+        "on": false,
+        "lora": "Expressive_H-000001.safetensors",
+        "strength": 1
+      },
+      "lora_8": {
+        "on": false,
+        "lora": "baiken_ggs.safetensors",
+        "strength": 1.4
+      },
+      "lora_9": {
+        "on": false,
+        "lora": "add-detail-xl.safetensors",
+        "strength": 1
+      },
+      "➕ Add Lora": "",
+      "model": [
+        "1",
+        0
+      ],
+      "clip": [
+        "2",
+        0
+      ]
+    },
+    "class_type": "Power Lora Loader (rgthree)",
+    "_meta": {
+      "title": "Power Lora Loader (rgthree)"
+    }
+  }
+}
